@@ -8,5 +8,4 @@ enum RadarState {
     ALARM
 };
 
-
 #endif
