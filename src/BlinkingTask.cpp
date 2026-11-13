@@ -12,6 +12,7 @@ void BlinkingTask::init(int period){
 }
   
 void BlinkingTask::tick(){
+  // aggiungere un piccolo delay
   switch (state){
     case OFF:
       led->switchOn();

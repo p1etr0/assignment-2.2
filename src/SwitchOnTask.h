@@ -7,8 +7,7 @@
 class SwitchOnTask: public Task { 
 
 public:
-    SwitchOnTask
-(int pin);
+    SwitchOnTask(int pin);
     void init(int period);
     void tick();
 

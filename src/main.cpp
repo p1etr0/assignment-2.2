@@ -4,6 +4,8 @@
 
 #include "Led.h"
 #include "BlinkingTask.h"
+#include "ManualSweepTask.h"
+#include "Scheduler.h"
 #include "Types.h"
 
 #define TEMP A1
@@ -16,7 +18,10 @@
 #define POT A0
 #define MOTOR 9
 
-RadarState state = ALARM;
+RadarState radarState = ALARM;
+Scheduler* scheduler;
+BlinkingTask* blinkingTask;
+ManualSweepTask* manualSweepTask;
 
 void setup() {
     pinMode(TEMP, INPUT);
@@ -30,10 +35,22 @@ void setup() {
 
     Serial.begin(9600);
 
+    scheduler = new Scheduler();
+    scheduler->init(100);
+
+    blinkingTask = new BlinkingTask(RED_LED);
+    blinkingTask->init(100);
+    
+
+    manualSweepTask = new ManualSweepTask(MOTOR, POT);
+    manualSweepTask->init(100, 10);
+    
+    scheduler->addTask(blinkingTask);
+    scheduler->addTask(manualSweepTask);
 }
 
 void loop() {
-    switch (state)
+    switch (radarState)
     {
     case IDLE:
         /* code */
@@ -48,12 +65,13 @@ void loop() {
         break;
 
     case ALARM:
-        /* code */
+        
         break;
     
     default:
         break;
     }
 
+    scheduler->schedule();
 }
 

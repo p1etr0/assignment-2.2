@@ -1,17 +1,17 @@
-#include "Pot.h"
+#include "Potentiometer.h"
 #include "Arduino.h"
 
 Potentiometer::Potentiometer(int pin){
   this->pin = pin;
 } 
   
-void Potentiometer::sync(){
-  value = analogRead(pin);  
+void Potentiometer::sync(){ 
   updateSyncTime(millis());
 }
 
 float Potentiometer::getValue(){
-  return value / 1023.0;
+  this->sync();
+  return analogRead(pin);
 }
 
 void Potentiometer::updateSyncTime(long time){

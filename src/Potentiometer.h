@@ -1,5 +1,5 @@
-#ifndef __POT__
-#define __POT__
+#ifndef __POTENTIOMETER__
+#define __POTENTIOMETER__
 
 class Potentiometer {
  

@@ -5,15 +5,15 @@ class ServoMotor {
 
 public:
     ServoMotor(int pin, int sectors);
-    void on();
-    bool getState();
+    void sweep();
     void setPosition(int angle);
-    void off();
 
 private:
   int pin; 
-  bool isOn;
   int sectors;
+  int position;
+  enum direzione { FORWARD = 1, BACKWARD = -1 };
+  direzione dir;
 };
 
 #endif
