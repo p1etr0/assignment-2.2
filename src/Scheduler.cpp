@@ -1,8 +1,6 @@
 #include "Scheduler.h"
 #include "Arduino.h"
 
-
-
 void Scheduler::init(int basePeriod){
   this->basePeriod = basePeriod;
   // timer.setupPeriod(basePeriod);  
@@ -34,4 +32,5 @@ void Scheduler::schedule(){
       }
     }
   }
+  nTasks = 0;
 }
