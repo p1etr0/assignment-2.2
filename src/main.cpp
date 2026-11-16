@@ -16,12 +16,12 @@
 #define RESET 3
 #define GREEN_LED 5
 #define RED_LED 6
-#define ECHO 8
-#define TRIG 7
+#define ECHO 7
+#define TRIG 8
 #define POT A0
 #define MOTOR 9
 
-RadarState radarState = ALARM;
+RadarState radarState = WORKING;
 Scheduler* scheduler;
 BlinkingTask* blinkingTask;
 ManualSweepTask* manualSweepTask;
@@ -65,7 +65,7 @@ void setup() {
 
     switchOnTask = new SwitchOnTask(GREEN_LED);
     switchOnTask->init();
-    senseD1Task = new SenseD1Task(ECHO, TRIG, TEMP);
+    senseD1Task = new SenseD1Task(TRIG, ECHO, TEMP);
     senseD1Task->init(100);
 }
 

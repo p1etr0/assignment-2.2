@@ -6,7 +6,6 @@ TemperatureSensor::TemperatureSensor(int pin){
 }
 
 float TemperatureSensor::getTemperature(){
-  // non funziona la formula porco giuda
-    return (analogRead(pin)* 5 - 0.5)*100 ; // convert the analog reading to temperature in Celsius
+  return ((analogRead(pin)/1023.0*5.0*1000.0)-500)/10.0 ; // convert the analog reading to temperature in Celsius
 }
 

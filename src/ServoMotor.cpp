@@ -31,7 +31,6 @@ void ServoMotor::setPosition(int angle) {
 
     float coeff = (2400.0 - 544.0) / 180.0;
     int pulse = 544 + angle * coeff;
-    Serial.print(pulse);
     motor.write(pulse);
 }
 

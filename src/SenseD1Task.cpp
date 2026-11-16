@@ -15,7 +15,7 @@ void SenseD1Task::init(int period){
   
 void SenseD1Task::tick(){
     float temperature = tempSensor->getTemperature();
-    temperature = 20.0;
+    //temperature = 20.0;
     float distance = sonar->getDistance(temperature);
     Serial.print("Temperature: " + String(temperature) + " | Distance: " + String(distance) + "\n");
 }
