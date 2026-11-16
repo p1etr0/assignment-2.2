@@ -12,7 +12,6 @@ void BlinkingTask::init(int period){
 }
   
 void BlinkingTask::tick(){
-  Serial.print("BlinkingTask tick\n");
   switch (state){
     case OFF:
       led->switchOn();

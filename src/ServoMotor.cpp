@@ -26,12 +26,13 @@ void ServoMotor::sweep() {
 }
 
 void ServoMotor::setPosition(int angle) {
+    angle = constrain(angle, 0, 180);
     this->position = angle;
 
-    // valori personalizzati per il nostro servo motore
-    float coeff = (2400.0-544.0)/180;
-    motor.write(544 + angle*coeff);
-    // TO DO: DA TESTARE
+    float coeff = (2400.0 - 544.0) / 180.0;
+    int pulse = 544 + angle * coeff;
+    Serial.print(pulse);
+    motor.write(pulse);
 }
 
 

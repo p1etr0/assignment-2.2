@@ -1,318 +1,110 @@
 {
   "version": 1,
-  "author": "OpenAI",
+  "author": "Riccardo Ragazzini",
   "editor": "wokwi",
   "parts": [
-    {
-      "type": "wokwi-arduino-uno",
-      "id": "uno",
-      "top": 40,
-      "left": 20,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-hc-sr04",
-      "id": "sonar",
-      "top": -120,
-      "left": 350,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-servo",
-      "id": "servo",
-      "top": -40,
-      "left": 530,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-pushbutton",
-      "id": "start",
-      "top": 220,
-      "left": 330,
-      "attrs": {
-        "color": "green",
-        "label": "START"
-      }
-    },
-    {
-      "type": "wokwi-pushbutton",
-      "id": "stop",
-      "top": 220,
-      "left": 420,
-      "attrs": {
-        "color": "red",
-        "label": "STOP"
-      }
-    },
-    {
-      "type": "wokwi-pushbutton",
-      "id": "reset",
-      "top": 220,
-      "left": 510,
-      "attrs": {
-        "color": "blue",
-        "label": "RESET"
-      }
-    },
-    {
-      "type": "wokwi-led",
-      "id": "led_on",
-      "top": 340,
-      "left": 330,
-      "attrs": {
-        "color": "green"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "r_on",
-      "top": 360,
-      "left": 390,
-      "attrs": {
-        "value": "220"
-      }
-    },
-    {
-      "type": "wokwi-led",
-      "id": "led_alarm",
-      "top": 340,
-      "left": 470,
-      "attrs": {
-        "color": "red"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "r_alarm",
-      "top": 360,
-      "left": 530,
-      "attrs": {
-        "value": "220"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "r_alarm",
-      "top": 360,
-      "left": 530,
-      "attrs": {
-        "value": "220"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "r_alarm",
-      "top": 360,
-      "left": 530,
-      "attrs": {
-        "value": "220"
-      }
-    },
-    
-    {
-      "type": "wokwi-potentiometer",
-      "id": "pot",
-      "top": -120,
-      "left": 30,
-      "attrs": {
-        "label": "POT"
-      }
-    },
-    {
-      "type": "wokwi-potentiometer",
-      "id": "temp_sim",
-      "top": -10,
-      "left": 30,
-      "attrs": {
-        "label": "TEMP (TMP36 emulator)"
-      }
-    },
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 67.8, "left": -154.2, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "pot1", "top": -337.3, "left": -125, "attrs": {} },
     {
       "type": "wokwi-lcd1602",
-      "id": "lcd",
-      "top": 430,
-      "left": 40,
-      "attrs": {
-        "pins": "i2c",
-        "i2cAddress": "0x27"
-      }
+      "id": "lcd1",
+      "top": 294.4,
+      "left": -138.4,
+      "attrs": { "pins": "i2c" }
+    },
+    { "type": "wokwi-led", "id": "led1", "top": -99.6, "left": 23, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": -138,
+      "left": 42.2,
+      "attrs": { "color": "limegreen" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -53.65,
+      "left": 48,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": -101.65,
+      "left": 76.8,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-pushbutton-6mm",
+      "id": "btn1",
+      "top": -11.8,
+      "left": 201.6,
+      "attrs": { "color": "blue", "xray": "1", "bounce": "1" }
+    },
+    {
+      "type": "wokwi-pushbutton-6mm",
+      "id": "btn2",
+      "top": 26.6,
+      "left": 201.6,
+      "attrs": { "color": "green", "xray": "1" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": -15.25,
+      "left": 240,
+      "attrs": { "value": "10000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r4",
+      "top": 23.15,
+      "left": 240,
+      "attrs": { "value": "10000" }
+    },
+    { "type": "wokwi-hc-sr04", "id": "ultrasonic1", "top": -459.3, "left": -61.7, "attrs": {} },
+    { "type": "wokwi-servo", "id": "servo1", "top": -357.2, "left": 134.4, "attrs": {} },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "pot2",
+      "top": 53,
+      "left": -375.4,
+      "rotate": 180,
+      "attrs": { "travelLength": "30" }
     }
   ],
   "connections": [
-    [
-      "sonar:VCC",
-      "uno:5V",
-      "red",
-      []
-    ],
-    [
-      "sonar:GND",
-      "uno:GND.1",
-      "black",
-      []
-    ],
-    [
-      "sonar:TRIG",
-      "7",
-      "green",
-      []
-    ],
-    [
-      "sonar:ECHO",
-      "uno:8",
-      "blue",
-      []
-    ],
-    [
-      "servo:V+",
-      "uno:5V",
-      "red",
-      []
-    ],
-    [
-      "servo:GND",
-      "uno:GND.1",
-      "black",
-      []
-    ],
-    [
-      "servo:PWM",
-      "uno:9",
-      "orange",
-      []
-    ],
-    [
-      "start:1.l",
-      "uno:2",
-      "green",
-      []
-    ],
-    [
-      "start:2.l",
-      "uno:GND.2",
-      "black",
-      []
-    ],
-    [
-      "stop:1.l",
-      "uno:3",
-      "red",
-      []
-    ],
-    [
-      "stop:2.l",
-      "uno:GND.2",
-      "black",
-      []
-    ],
-    [
-      "reset:1.l",
-      "uno:4",
-      "blue",
-      []
-    ],
-    [
-      "reset:2.l",
-      "uno:GND.2",
-      "black",
-      []
-    ],
-    [
-      "uno:5",
-      "r_on:1",
-      "green",
-      []
-    ],
-    [
-      "r_on:2",
-      "led_on:A",
-      "green",
-      []
-    ],
-    [
-      "led_on:C",
-      "uno:GND.2",
-      "black",
-      []
-    ],
-    [
-      "uno:6",
-      "r_alarm:1",
-      "red",
-      []
-    ],
-    [
-      "r_alarm:2",
-      "led_alarm:A",
-      "red",
-      []
-    ],
-    [
-      "led_alarm:C",
-      "uno:GND.2",
-      "black",
-      []
-    ],
-    [
-      "pot:VCC",
-      "uno:5V",
-      "red",
-      []
-    ],
-    [
-      "pot:GND",
-      "uno:GND.1",
-      "black",
-      []
-    ],
-    [
-      "pot:SIG",
-      "uno:A0",
-      "green",
-      []
-    ],
-    [
-      "temp_sim:VCC",
-      "uno:5V",
-      "red",
-      []
-    ],
-    [
-      "temp_sim:GND",
-      "uno:GND.1",
-      "black",
-      []
-    ],
-    [
-      "temp_sim:SIG",
-      "uno:A1",
-      "orange",
-      []
-    ],
-    [
-      "lcd:VCC",
-      "uno:5V",
-      "red",
-      []
-    ],
-    [
-      "lcd:GND",
-      "uno:GND.2",
-      "black",
-      []
-    ],
-    [
-      "lcd:SDA",
-      "uno:A4",
-      "green",
-      []
-    ],
-    [
-      "lcd:SCL",
-      "uno:A5",
-      "yellow",
-      []
-    ]
+    [ "pot1:GND", "uno:GND.2", "blue", [ "v0" ] ],
+    [ "pot1:VCC", "uno:5V", "red", [ "v0" ] ],
+    [ "pot1:SIG", "uno:A0", "green", [ "v0" ] ],
+    [ "lcd1:GND", "uno:GND.2", "blue", [ "h0" ] ],
+    [ "lcd1:VCC", "uno:5V", "red", [ "h0" ] ],
+    [ "lcd1:SDA", "uno:A4.2", "limegreen", [ "h0" ] ],
+    [ "lcd1:SCL", "uno:A5.2", "gold", [ "h0" ] ],
+    [ "r2:1", "led2:A", "blue", [ "v0" ] ],
+    [ "r1:1", "led1:A", "blue", [ "v0" ] ],
+    [ "btn2:2.l", "uno:5V", "red", [ "h0" ] ],
+    [ "btn1:2.l", "uno:5V", "red", [ "h0" ] ],
+    [ "r4:1", "btn2:1.r", "blue", [ "v0" ] ],
+    [ "r3:1", "btn1:1.r", "blue", [ "v0" ] ],
+    [ "r4:2", "uno:GND.3", "green", [ "v0" ] ],
+    [ "r3:2", "uno:GND.3", "blue", [ "v0" ] ],
+    [ "servo1:GND", "uno:GND.2", "blue", [ "h-172.8", "v355.2" ] ],
+    [ "servo1:V+", "uno:5V", "red", [ "h0" ] ],
+    [ "servo1:PWM", "uno:9", "green", [ "h0" ] ],
+    [ "ultrasonic1:VCC", "servo1:V+", "red", [ "v0" ] ],
+    [ "ultrasonic1:TRIG", "uno:8", "violet", [ "v0" ] ],
+    [ "ultrasonic1:ECHO", "uno:7", "orange", [ "v0" ] ],
+    [ "ultrasonic1:GND", "servo1:GND", "blue", [ "v0" ] ],
+    [ "pot2:VCC", "uno:5V", "red", [ "v0" ] ],
+    [ "pot2:GND", "uno:GND.2", "blue", [ "v0" ] ],
+    [ "pot2:SIG", "uno:A1", "gold", [ "h0" ] ],
+    [ "r2:2", "uno:5", "blue", [ "v0" ] ],
+    [ "r1:2", "uno:6", "blue", [ "v0" ] ],
+    [ "led2:C", "uno:GND.3", "red", [ "v0" ] ],
+    [ "led1:C", "uno:GND.3", "red", [ "v0" ] ],
+    [ "btn1:1.l", "uno:4", "orange", [ "h0" ] ],
+    [ "btn2:1.l", "uno:3", "orange", [ "h0" ] ]
   ],
   "dependencies": {}
 }

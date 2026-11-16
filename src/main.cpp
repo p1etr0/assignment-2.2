@@ -12,8 +12,8 @@
 #include "Types.h"
 
 #define TEMP A1
-#define START_STOP 3
-#define RESET 2
+#define START_STOP 4
+#define RESET 3
 #define GREEN_LED 5
 #define RED_LED 6
 #define ECHO 8
@@ -21,7 +21,7 @@
 #define POT A0
 #define MOTOR 9
 
-RadarState radarState = WORKING;
+RadarState radarState = ALARM;
 Scheduler* scheduler;
 BlinkingTask* blinkingTask;
 ManualSweepTask* manualSweepTask;
