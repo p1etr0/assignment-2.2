@@ -5,8 +5,8 @@ SwitchOnTask::SwitchOnTask(int pin){
   this->pin = pin;    
 }
   
-void SwitchOnTask::init(int period){
-  Task::init(period);
+void SwitchOnTask::init(){
+  Task::init();
   led = new Led(pin); 
   state = OFF;    
 }

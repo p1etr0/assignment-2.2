@@ -1,5 +1,7 @@
 #ifndef __SERVO_MOTOR__
 #define __SERVO_MOTOR__
+#include "Arduino.h"
+#include "ServoTimer2.h"
 
 class ServoMotor {
 
@@ -9,6 +11,7 @@ public:
     void setPosition(int angle);
 
 private:
+  ServoTimer2 motor;
   int pin; 
   int sectors;
   int position;

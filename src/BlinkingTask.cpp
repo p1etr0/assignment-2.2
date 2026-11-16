@@ -12,7 +12,7 @@ void BlinkingTask::init(int period){
 }
   
 void BlinkingTask::tick(){
-  // aggiungere un piccolo delay
+  Serial.print("BlinkingTask tick\n");
   switch (state){
     case OFF:
       led->switchOn();

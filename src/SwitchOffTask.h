@@ -9,7 +9,7 @@ class SwitchOffTask: public Task {
 public:
     SwitchOffTask
 (int pin);
-    void init(int period);
+    void init();
     void tick();
 
 private:
