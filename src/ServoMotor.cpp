@@ -6,7 +6,7 @@
 ServoMotor::ServoMotor(int pin, int sectors) {
     this->pin = pin;
     this->sectors = sectors;
-    this->dir = FORWARD;
+    this->dir = BACKWARD;
     this->position = 0;
     this->motor.attach(pin);
 }
@@ -23,6 +23,7 @@ void ServoMotor::sweep() {
     }
 
     setPosition(position);
+    Serial.print("ServoMotor::sweep() - position: " + String(position) + "\n");
 }
 
 void ServoMotor::setPosition(int angle) {

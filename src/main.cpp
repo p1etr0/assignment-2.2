@@ -7,7 +7,7 @@
 #include "ResetAlarmTask.h"
 #include "AutoSweepTask.h"
 #include "SwitchOnTask.h"
-#include "SenseD1Task.h"
+#include "SenseDistanceTask.h"
 #include "Scheduler.h"
 #include "Types.h"
 
@@ -21,7 +21,7 @@
 #define POT A0
 #define MOTOR 9
 
-RadarState radarState = WORKING;
+RadarState radarState = ALARM;
 Scheduler* scheduler;
 BlinkingTask* blinkingTask;
 ManualSweepTask* manualSweepTask;
@@ -29,7 +29,7 @@ ResetAlarmTask* resetAlarmTask;
 
 AutoSweepTask* autoSweepTask;
 SwitchOnTask* switchOnTask;
-SenseD1Task* senseD1Task;
+SenseDistanceTask* senseDistanceTask;
 
 void swapToWorking() {
     if (radarState == ALARM){
@@ -65,8 +65,10 @@ void setup() {
 
     switchOnTask = new SwitchOnTask(GREEN_LED);
     switchOnTask->init();
-    senseD1Task = new SenseD1Task(TRIG, ECHO, TEMP);
-    senseD1Task->init(100);
+    senseDistanceTask = new SenseDistanceTask(TRIG, ECHO, TEMP);
+    senseDistanceTask->init(100);
+    autoSweepTask = new AutoSweepTask(MOTOR);
+    autoSweepTask->init(100);
 }
 
 void loop() {
@@ -77,9 +79,10 @@ void loop() {
         break;
 
     case WORKING:
-        //scheduler->addTask(autoSweepTask);
+        scheduler->addTask(autoSweepTask);
         scheduler->addTask(switchOnTask);
-        scheduler->addTask(senseD1Task);
+        scheduler->addTask(senseDistanceTask);
+        radarState = scheduler->getState();
         break;
 
     case PRE_ALARM:
@@ -93,7 +96,7 @@ void loop() {
     default:
         break;
     }
-
+    Serial.println(radarState);
     scheduler->schedule();
 }
 

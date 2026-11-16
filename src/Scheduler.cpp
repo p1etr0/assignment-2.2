@@ -5,6 +5,21 @@ void Scheduler::init(int basePeriod){
   this->basePeriod = basePeriod;
   // timer.setupPeriod(basePeriod);  
   nTasks = 0;
+  this->sonarState = IDLE;
+}
+
+void Scheduler::changeState(float distance){
+  sonarState = WORKING;
+  if (distance > D1 && distance < D2){
+    sonarState = ALARM;
+  } else {
+    sonarState = PRE_ALARM;
+  }
+}
+
+
+RadarState Scheduler::getState(){
+  return sonarState;
 }
 
 bool Scheduler::addTask(Task* task){

@@ -1,14 +1,14 @@
-#ifndef __SENSED1TASK__
-#define __SENSED1TASK__
+#ifndef __SENSEDISTANCETASK__
+#define __SENSEDISTANCETASK__
 
 #include "Task.h"
 #include "TemperatureSensor.h"
 #include "Sonar.h"
 
-class SenseD1Task: public Task { 
+class SenseDistanceTask: public Task { 
 
 public:
-    SenseD1Task(int pinTrig, int pinEcho, int pinTemp);
+    SenseDistanceTask(int pinTrig, int pinEcho, int pinTemp);
     void init(int period);
     void tick();
 
