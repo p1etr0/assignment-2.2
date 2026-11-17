@@ -7,6 +7,7 @@
 #include "ResetAlarmTask.h"
 #include "AutoSweepTask.h"
 #include "SwitchOnTask.h"
+#include "SwitchOffTask.h"
 #include "SenseDistanceTask.h"
 #include "Scheduler.h"
 #include "Types.h"
@@ -27,7 +28,12 @@ ManualSweepTask* manualSweepTask;
 ResetAlarmTask* resetAlarmTask;
 
 AutoSweepTask* autoSweepTask;
-SwitchOnTask* switchOnTask;
+
+SwitchOnTask* switchOnGreenTask;
+SwitchOffTask* switchOffGreenTask;
+SwitchOffTask* switchOffRedTask;
+SwitchOnTask* switchOnRedTask;
+
 SenseDistanceTask* senseDistanceTask;
 
 void resetAction() {
@@ -67,12 +73,20 @@ void setup() {
     attachInterrupt(digitalPinToInterrupt(RESET), resetAction, RISING);
     attachInterrupt(digitalPinToInterrupt(START_STOP), startStopActions, RISING);
 
-    switchOnTask = new SwitchOnTask(GREEN_LED);
-    switchOnTask->init();
+    switchOnGreenTask = new SwitchOnTask(GREEN_LED);
+    switchOnGreenTask->init();
+    switchOffGreenTask = new SwitchOffTask(GREEN_LED);
+    switchOffGreenTask->init();
+
+    switchOnRedTask = new SwitchOnTask(RED_LED);
+    switchOnRedTask->init();
+    switchOffRedTask = new SwitchOffTask(RED_LED);
+    switchOffRedTask->init();
+    
     senseDistanceTask = new SenseDistanceTask(TRIG, ECHO, TEMP);
     senseDistanceTask->init(100);
     autoSweepTask = new AutoSweepTask(MOTOR);
-    autoSweepTask->init(100);
+    autoSweepTask->init(1000);
 
 }
 
@@ -80,18 +94,20 @@ void loop() {
     switch (radarState)
     {
     case IDLE:
-        /* code */
+        scheduler->addTask(switchOffGreenTask);
+        scheduler->addTask(switchOffRedTask);
         break;
 
     case WORKING:
         scheduler->addTask(autoSweepTask);
-        scheduler->addTask(switchOnTask);
+        scheduler->addTask(switchOnGreenTask);
         scheduler->addTask(senseDistanceTask);
         break;
 
     case PRE_ALARM:
+        scheduler->addTask(switchOffGreenTask);
         scheduler->addTask(autoSweepTask);
-        scheduler->addTask(switchOnTask);
+        scheduler->addTask(switchOnRedTask);
         scheduler->addTask(senseDistanceTask);
         break;
 
