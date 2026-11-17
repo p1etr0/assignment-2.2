@@ -8,4 +8,6 @@ enum RadarState {
     ALARM
 };
 
+extern RadarState radarState;
+
 #endif

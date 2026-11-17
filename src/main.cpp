@@ -12,7 +12,7 @@
 #include "Types.h"
 
 #define TEMP A1
-#define START_STOP 4
+#define START_STOP 2
 #define RESET 3
 #define GREEN_LED 5
 #define RED_LED 6
@@ -21,7 +21,6 @@
 #define POT A0
 #define MOTOR 9
 
-RadarState radarState = ALARM;
 Scheduler* scheduler;
 BlinkingTask* blinkingTask;
 ManualSweepTask* manualSweepTask;
@@ -31,11 +30,15 @@ AutoSweepTask* autoSweepTask;
 SwitchOnTask* switchOnTask;
 SenseDistanceTask* senseDistanceTask;
 
-void swapToWorking() {
+void resetAction() {
     if (radarState == ALARM){
         scheduler->addTask(resetAlarmTask);
         radarState = WORKING;
     }
+}
+
+void startStopActions() {
+    radarState = radarState == IDLE ? WORKING : radarState == WORKING ? IDLE : radarState;
 }
 
 void setup() {
@@ -61,7 +64,8 @@ void setup() {
     manualSweepTask->init(100, 10);
     resetAlarmTask = new ResetAlarmTask(RED_LED, MOTOR);
     resetAlarmTask->init(100);
-    attachInterrupt(digitalPinToInterrupt(RESET), swapToWorking, RISING);
+    attachInterrupt(digitalPinToInterrupt(RESET), resetAction, RISING);
+    attachInterrupt(digitalPinToInterrupt(START_STOP), startStopActions, RISING);
 
     switchOnTask = new SwitchOnTask(GREEN_LED);
     switchOnTask->init();
@@ -69,6 +73,7 @@ void setup() {
     senseDistanceTask->init(100);
     autoSweepTask = new AutoSweepTask(MOTOR);
     autoSweepTask->init(100);
+
 }
 
 void loop() {
@@ -82,10 +87,12 @@ void loop() {
         scheduler->addTask(autoSweepTask);
         scheduler->addTask(switchOnTask);
         scheduler->addTask(senseDistanceTask);
-        radarState = scheduler->getState();
         break;
 
     case PRE_ALARM:
+        scheduler->addTask(autoSweepTask);
+        scheduler->addTask(switchOnTask);
+        scheduler->addTask(senseDistanceTask);
         break;
 
     case ALARM:

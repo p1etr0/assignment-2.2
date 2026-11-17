@@ -18,6 +18,8 @@ private:
     int pinTrig;
     int pinEcho;
     int pinTemp;
+    const int D1 = 1;
+    const int D2 = 2;
 };
 
 

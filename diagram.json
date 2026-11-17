@@ -103,7 +103,7 @@
     [ "r1:2", "uno:6", "blue", [ "v0" ] ],
     [ "led2:C", "uno:GND.3", "red", [ "v0" ] ],
     [ "led1:C", "uno:GND.3", "red", [ "v0" ] ],
-    [ "btn1:1.l", "uno:4", "orange", [ "h0" ] ],
+    [ "btn1:1.l", "uno:2", "orange", [ "h0" ] ],
     [ "btn2:1.l", "uno:3", "orange", [ "h0" ] ]
   ],
   "dependencies": {}
