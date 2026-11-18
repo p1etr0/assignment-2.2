@@ -1,12 +1,12 @@
-#include <Arduino.h>
+#include "Arduino.h"
 
 #include "Context.h"
 
 #include "Scheduler.h"
 
-#include "SweepTask.h"
-#include "LedControlTask.h"
-#include "SenseDistanceTask.h"
+#include "tasks/SweepTask.h"
+#include "tasks/LedControlTask.h"
+#include "tasks/SenseDistanceTask.h"
 
 #define POT A0
 #define TEMP A1
