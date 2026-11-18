@@ -12,14 +12,5 @@ void BlinkingTask::init(int period){
 }
 
 void BlinkingTask::tick(){
-  switch (ledState){
-    case OFF:
-      led->switchOn();
-      ledState = ON; 
-      break;
-    case ON:
-      led->switchOff();
-      ledState = OFF;
-      break;
-  }
+  
 }

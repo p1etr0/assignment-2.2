@@ -3,11 +3,10 @@
 
 #include "Led.h"
 #include "BlinkingTask.h"
-#include "ManualSweepTask.h"
 #include "ResetAlarmTask.h"
-#include "AutoSweepTask.h"
-#include "SwitchOnTask.h"
-#include "SwitchOffTask.h"
+#include "SweepTask.h"
+
+#include "LedControlTask.h"
 #include "SenseDistanceTask.h"
 #include "Scheduler.h"
 
@@ -24,17 +23,12 @@
 #define MOTOR 9
 
 Scheduler* scheduler;
+LedControlTask* ledControlTask;
+SweepTask* sweepTask;
+
 BlinkingTask* blinkingTask;
-ManualSweepTask* manualSweepTask;
+
 ResetAlarmTask* resetAlarmTask;
-
-AutoSweepTask* autoSweepTask;
-
-SwitchOnTask* switchOnGreenTask;
-SwitchOffTask* switchOffGreenTask;
-SwitchOffTask* switchOffRedTask;
-SwitchOnTask* switchOnRedTask;
-
 SenseDistanceTask* senseDistanceTask;
 
 Context& context = Context::getInstance();
@@ -45,7 +39,7 @@ Led* redLed;
 
 void resetAction() {
     if (context.isAlarm()){
-        scheduler->addTask(resetAlarmTask);
+        //scheduler->addTask(resetAlarmTask);
         context.setWorking();
     }
 }
@@ -74,68 +68,43 @@ void setup() {
     scheduler = new Scheduler();
     scheduler->init(100);
 
-    blinkingTask = new BlinkingTask(RED_LED);
-    blinkingTask->init(30000);
+    //blinkingTask = new BlinkingTask(RED_LED);
+    //-blinkingTask->init(30000);
     
 
-    manualSweepTask = new ManualSweepTask(MOTOR, POT);
-    manualSweepTask->init(100, 10);
-    resetAlarmTask = new ResetAlarmTask(RED_LED, MOTOR);
-    resetAlarmTask->init(100);
+    sweepTask = new SweepTask(MOTOR, POT);
+    sweepTask->init(1000);
+
+
+    //resetAlarmTask = new ResetAlarmTask(RED_LED, MOTOR);
+    //resetAlarmTask->init(100);
     attachInterrupt(digitalPinToInterrupt(RESET), resetAction, RISING);
     attachInterrupt(digitalPinToInterrupt(START_STOP), startStopActions, RISING);
 
-    switchOnGreenTask = new SwitchOnTask(GREEN_LED);
-    switchOnGreenTask->init();
-    switchOffGreenTask = new SwitchOffTask(GREEN_LED);
-    switchOffGreenTask->init();
-
-    switchOnRedTask = new SwitchOnTask(RED_LED);
-    switchOnRedTask->init();
-    switchOffRedTask = new SwitchOffTask(RED_LED);
-    switchOffRedTask->init();
-    
+    //switchOnGreenTask = new SwitchOnTask(GREEN_LED);
+    //switchOnGreenTask->init();
+    //switchOffGreenTask = new SwitchOffTask(GREEN_LED);
+    //switchOffGreenTask->init();
+//
+    //switchOnRedTask = new SwitchOnTask(RED_LED);
+    //switchOnRedTask->init();
+    //switchOffRedTask = new SwitchOffTask(RED_LED);
+    //switchOffRedTask->init();
+    //
+    ledControlTask = new LedControlTask(RED_LED, GREEN_LED);
+    ledControlTask->init(30000);
     senseDistanceTask = new SenseDistanceTask(TRIG, ECHO, TEMP);
     senseDistanceTask->init(100);
-    autoSweepTask = new AutoSweepTask(MOTOR);
-    autoSweepTask->init(1000);
-
-    greenLed = new Led(GREEN_LED);
-    redLed = new Led(RED_LED);
+//
+    //greenLed = new Led(GREEN_LED);
+    //redLed = new Led(RED_LED);
+    scheduler->addTask(ledControlTask);
+    scheduler->addTask(sweepTask);
+    scheduler->addTask(senseDistanceTask);
+    //scheduler->addTask();
 }
 
 void loop() {
-    switch (radarState)
-    {
-    case IDLE:
-        greenLed->switchOn();
-        redLed->switchOff();
-        break;
-
-    case WORKING:
-        scheduler->addTask(autoSweepTask);
-        greenLed->switchOn();
-        redLed->switchOff();
-        scheduler->addTask(senseDistanceTask);
-        break;
-
-    case PRE_ALARM:
-        greenLed->switchOff();
-        redLed->switchOn();
-
-        scheduler->addTask(autoSweepTask);
-        scheduler->addTask(senseDistanceTask);
-        break;
-
-    case ALARM:
-        scheduler->addTask(blinkingTask);
-        scheduler->addTask(manualSweepTask);
-        break;
-    
-    default:
-        break;
-    }
-    Serial.println(radarState);
     scheduler->schedule();
 }
 

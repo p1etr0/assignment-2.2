@@ -23,7 +23,7 @@ void ServoMotor::sweep() {
     }
 
     setPosition(position);
-    Serial.print("ServoMotor::sweep() - position: " + String(position) + "\n");
+    //Serial.print("ServoMotor::sweep() - position: " + String(position) + "\n");
 }
 
 void ServoMotor::setPosition(int angle) {

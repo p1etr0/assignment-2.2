@@ -32,5 +32,5 @@ void Scheduler::schedule(){
       }
     }
   }
-  nTasks = 0;
+  Context::getInstance().isIdle() ? Serial.println("IDLE") :Context::getInstance().isWorking() ? Serial.println("WORKING") : Context::getInstance().isPreAlarm() ? Serial.println("PREALARM") : Context::getInstance().isAlarm() ? Serial.println("ALARM"):Serial.println("BOH");
 }

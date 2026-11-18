@@ -1,5 +1,5 @@
 #include "SenseDistanceTask.h"
-#include "Types.h"
+#include "Context.h"
 #include "Arduino.h"
 
 SenseDistanceTask::SenseDistanceTask(int pinTrig, int pinEcho, int pinTemp){
@@ -18,13 +18,13 @@ void SenseDistanceTask::tick(){
     float temperature = tempSensor->getTemperature();
     float distance = sonar->getDistance(temperature);
     
-    if (distance > D1 && distance < D2){
-        radarState = PRE_ALARM;
-    } else if (radarState == PRE_ALARM) {
+    if (Context::getInstance().isWorking() && distance > D1 && distance < D2){
+        Context::getInstance().setPreAlarm();
+    } else if (Context::getInstance().isPreAlarm()) {
         if (distance < D1) {
-        radarState = ALARM;
+            Context::getInstance().setAlarm();
         } else if (distance > D2) {
-        radarState = WORKING;
+            Context::getInstance().setWorking();
         }
     }
 
