@@ -3,7 +3,6 @@
 
 Led::Led(int pin) {
   this->pin = pin;
-  pinMode(pin, OUTPUT);
 }
 
 void Led::switchOn() {

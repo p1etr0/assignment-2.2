@@ -14,7 +14,7 @@ public:
 private:
     int pin;
     Led* led;
-    enum {ON, OFF} state;
+    enum {ON, OFF} ledState;
 };
 
 #endif

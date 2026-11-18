@@ -64,12 +64,11 @@ public:
   
 private:
 
-  int myPeriod;
-  int timeElapsed;
-  bool active;
-  bool periodic;
-  bool completed;
-
+    int myPeriod;
+    int timeElapsed;
+    bool active;
+    bool periodic;
+    bool completed;
 };
 
 #endif

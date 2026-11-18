@@ -9,7 +9,7 @@ public:
     void switchOff();
 
 private:
-    int pin;  
+    int pin;
 };
 
 #endif

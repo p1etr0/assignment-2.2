@@ -2,24 +2,24 @@
 #include "Arduino.h"
 
 BlinkingTask::BlinkingTask(int pin){
-  this->pin = pin;    
+  this->pin = pin;
 }
-  
+
 void BlinkingTask::init(int period){
   Task::init(period);
   led = new Led(pin); 
-  state = OFF;    
+  ledState = OFF;
 }
-  
+
 void BlinkingTask::tick(){
-  switch (state){
+  switch (ledState){
     case OFF:
       led->switchOn();
-      state = ON; 
+      ledState = ON; 
       break;
     case ON:
       led->switchOff();
-      state = OFF;
+      ledState = OFF;
       break;
   }
 }

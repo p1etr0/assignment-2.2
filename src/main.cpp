@@ -10,7 +10,8 @@
 #include "SwitchOffTask.h"
 #include "SenseDistanceTask.h"
 #include "Scheduler.h"
-#include "Types.h"
+
+#include "Context.h"
 
 #define TEMP A1
 #define START_STOP 2
@@ -36,15 +37,25 @@ SwitchOnTask* switchOnRedTask;
 
 SenseDistanceTask* senseDistanceTask;
 
+Context& context = Context::getInstance();
+
+// inizializzazione dei led
+Led* greenLed;
+Led* redLed;
+
 void resetAction() {
-    if (radarState == ALARM){
+    if (context.isAlarm()){
         scheduler->addTask(resetAlarmTask);
-        radarState = WORKING;
+        context.setWorking();
     }
 }
 
 void startStopActions() {
-    radarState = radarState == IDLE ? WORKING : radarState == WORKING ? IDLE : radarState;
+    if (context.isIdle()) {
+        context.setWorking();
+    } else if (context.isWorking()) {
+        context.setIdle();
+    }
 }
 
 void setup() {
@@ -58,6 +69,7 @@ void setup() {
     pinMode(POT, INPUT);
 
     Serial.begin(9600);
+
 
     scheduler = new Scheduler();
     scheduler->init(100);
@@ -88,26 +100,30 @@ void setup() {
     autoSweepTask = new AutoSweepTask(MOTOR);
     autoSweepTask->init(1000);
 
+    greenLed = new Led(GREEN_LED);
+    redLed = new Led(RED_LED);
 }
 
 void loop() {
     switch (radarState)
     {
     case IDLE:
-        scheduler->addTask(switchOffGreenTask);
-        scheduler->addTask(switchOffRedTask);
+        greenLed->switchOn();
+        redLed->switchOff();
         break;
 
     case WORKING:
         scheduler->addTask(autoSweepTask);
-        scheduler->addTask(switchOnGreenTask);
+        greenLed->switchOn();
+        redLed->switchOff();
         scheduler->addTask(senseDistanceTask);
         break;
 
     case PRE_ALARM:
-        scheduler->addTask(switchOffGreenTask);
+        greenLed->switchOff();
+        redLed->switchOn();
+
         scheduler->addTask(autoSweepTask);
-        scheduler->addTask(switchOnRedTask);
         scheduler->addTask(senseDistanceTask);
         break;
 

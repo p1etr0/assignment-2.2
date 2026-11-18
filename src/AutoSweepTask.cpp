@@ -5,8 +5,8 @@ AutoSweepTask::AutoSweepTask(int pinServo){
     this->pinServo = pinServo;
 }
   
-void AutoSweepTask::init(int period){
-    Task::init(period); 
+void AutoSweepTask::init(int period, Context context){
+    Task::init(period, context); 
     this->servo = new ServoMotor(pinServo, 10);
 }
 

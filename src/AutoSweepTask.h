@@ -8,7 +8,7 @@ class AutoSweepTask: public Task {
 
 public:
     AutoSweepTask(int pinServo);
-    void init(int period);
+    void init(int period, Context context);
     void tick();
 
 private:
