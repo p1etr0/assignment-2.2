@@ -2,8 +2,8 @@
 #define __SENSEDISTANCETASK__
 
 #include "Task.h"
-#include "TemperatureSensor.h"
-#include "Sonar.h"
+#include "components/TemperatureSensor.h"
+#include "components/Sonar.h"
 
 class SenseDistanceTask: public Task { 
 

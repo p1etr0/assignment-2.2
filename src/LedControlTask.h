@@ -2,7 +2,7 @@
 #define __LEDCONTROLTASK__
 
 #include "Task.h"
-#include "Led.h"
+#include "components/Led.h"
 
 class LedControlTask: public Task { 
 

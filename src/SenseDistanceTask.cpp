@@ -1,6 +1,5 @@
 #include "SenseDistanceTask.h"
 #include "Context.h"
-#include "Arduino.h"
 
 SenseDistanceTask::SenseDistanceTask(int pinTrig, int pinEcho, int pinTemp){
     this->pinTrig = pinTrig;

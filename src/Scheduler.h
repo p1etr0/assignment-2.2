@@ -2,7 +2,6 @@
 #define __SCHEDULER__
 
 #include "Task.h"
-#include "Context.h"
 
 #define MAX_TASKS 10
 

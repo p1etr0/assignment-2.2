@@ -2,8 +2,8 @@
 #define __SWEEPTASK__
 
 #include "Task.h"
-#include "ServoMotor.h"
-#include "Potentiometer.h"
+#include "components/ServoMotor.h"
+#include "components/Potentiometer.h"
 
 class SweepTask: public Task { 
 

@@ -1,6 +1,5 @@
 #include "SweepTask.h"
 #include "Context.h"
-#include "Arduino.h"
 
 SweepTask::SweepTask(int pinServo, int pinPot){
     this->pinServo = pinServo;

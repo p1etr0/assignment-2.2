@@ -1,5 +1,4 @@
 #include "LedControlTask.h"
-#include "Arduino.h"
 #include "Context.h"
 
 LedControlTask::LedControlTask(int pinRed, int pinGreen){
@@ -30,7 +29,6 @@ void LedControlTask::tick(){
         redState = ON;
         redLed->switchOn();
     } else if (Context::getInstance().isAlarm()) {
-      Serial.println("blink");
       switch (redState){
       case OFF:
         redLed->switchOn();
