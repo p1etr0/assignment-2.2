@@ -1,5 +1,6 @@
 #include "Scheduler.h"
-
+#include "Context.h"
+#include "Arduino.h"
 void Scheduler::init(int basePeriod){
   this->basePeriod = basePeriod;
   nTasks = 0;
@@ -30,5 +31,6 @@ void Scheduler::schedule(){
       }
     }
   }
-  //Context::getInstance().isIdle() ? Serial.println("IDLE") :Context::getInstance().isWorking() ? Serial.println("WORKING") : Context::getInstance().isPreAlarm() ? Serial.println("PREALARM") : Context::getInstance().isAlarm() ? Serial.println("ALARM"):Serial.println("BOH");
+  delay(300);
+  Context::getInstance().isIdle() ? Serial.println("IDLE") :Context::getInstance().isWorking() ? Serial.println("WORKING") : Context::getInstance().isPreAlarm() ? Serial.println("PREALARM") : Context::getInstance().isAlarm() ? Serial.println("ALARM"):Serial.println("BOH");
 }

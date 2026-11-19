@@ -22,8 +22,8 @@ private:
     int pinEcho;
     int pinTemp;
     float* spaceMap;
-    const int D1 = 1;
-    const int D2 = 2;
+    const float D1 = 0.20;
+    const float D2 = 0.30;
     const float TOLERANCE = 0.05;
 };
 

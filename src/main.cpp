@@ -4,6 +4,7 @@
 
 #include "Scheduler.h"
 
+#include "tasks/SleepTask.h"
 #include "tasks/SweepTask.h"
 #include "tasks/LedControlTask.h"
 #include "tasks/SenseDistanceTask.h"
@@ -21,13 +22,17 @@
 
 Context& context = Context::getInstance();
 
-const int sectors = 10;
+const int sectors = 3;
+bool sleepFlag = false;
 
 Scheduler* scheduler;
 
+SleepTask* sleepTask;
 LedControlTask* ledControlTask;
 SweepTask* sweepTask;
 SenseDistanceTask* senseDistanceTask;
+
+
 
 void resetAction() {
     if (context.isAlarm()){
@@ -40,6 +45,10 @@ void startStopActions() {
         context.setWorking();
     } else if (context.isWorking()) {
         context.setIdle();
+        sleepFlag = true;
+        
+        //scheduler->schedule();
+        
     }
 }
 
@@ -61,22 +70,35 @@ void setup() {
     scheduler = new Scheduler();
     scheduler->init(100);
 
+    sleepTask = new SleepTask();
+    sleepTask->init();
 
     sweepTask = new SweepTask(MOTOR, POT, sectors);
-    sweepTask->init(10000);
+    sweepTask->init(100);
 
     ledControlTask = new LedControlTask(RED_LED, GREEN_LED);
-    ledControlTask->init(30000);
+    ledControlTask->init(100);
 
     senseDistanceTask = new SenseDistanceTask(TRIG, ECHO, TEMP, sectors);
-    senseDistanceTask->init(10000);
+    senseDistanceTask->init(100);
 
+    sleepTask->setActive(true);
+
+    
     scheduler->addTask(ledControlTask);
     scheduler->addTask(sweepTask);
     scheduler->addTask(senseDistanceTask);
+    scheduler->addTask(sleepTask);
+   
+
 }
 
 void loop() {
+    if (sleepFlag) {
+        sleepFlag = false;
+        sleepTask->setActive(true);
+    }
     scheduler->schedule();
+
 }
 

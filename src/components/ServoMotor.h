@@ -13,7 +13,7 @@ public:
 private:
   ServoTimer2Plus motor;
   int pin; 
-  int sectors;
+  int sectorSpan;
   int position;
   int currentSector;
   enum direzione { FORWARD = 1, BACKWARD = -1 };

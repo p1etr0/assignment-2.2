@@ -7,10 +7,13 @@ Lcd::Lcd() {
 }
 
 void Lcd::write(int currentSector, bool objectDetected) {
+    lcd->clear();
+    lcd->backlight();
+    lcd->display(); 
     lcd->setCursor(0, 0);
-    lcd->print("Sector: " + currentSector);
+    lcd->print("Sector: " + String(currentSector));
     lcd->setCursor(0, 1);
-    lcd->print("Obj detected: " + objectDetected ? "Yes" : "No");
+    lcd->print("Object: " + String(objectDetected ? "Yes" : "No"));
 }
 
 void Lcd::clear() {

@@ -9,7 +9,8 @@ Sonar::Sonar(int pinTrig, int pinEcho){
 float Sonar::getDistance(float temperature) {
     // non funziona la formula 
     /* Triggering stage: sending the impulse */
-    float vs = 331.45 + 0.62*temperature;
+    temperature = 22.0;
+    float vs = 331.45 + 0.62*(temperature);
     digitalWrite(pinTrig,LOW);
     delayMicroseconds(3);
     digitalWrite(pinTrig,HIGH);
@@ -22,6 +23,7 @@ float Sonar::getDistance(float temperature) {
     if (tUS > 0){
       float t = tUS / 1000.0 / 1000.0 / 2;
       float d = t*vs;
+      Serial.println(d);
       return d;
     } else {
       return -1.0;
