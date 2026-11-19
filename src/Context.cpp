@@ -3,6 +3,7 @@
 // Il costruttore ora è privato e viene richiamato solo internamente da getInstance()
 Context::Context() {
     this->radarState = IDLE;
+    this->currentSector = 0;
 }
 
 bool Context::isIdle() {
@@ -35,4 +36,12 @@ void Context::setPreAlarm() {
 
 void Context::setAlarm() {
     this->radarState = ALARM;
+}
+
+void Context::setCurrentSector(int currentSector) {
+    this->currentSector = currentSector;
+}
+
+int Context::getCurrentSector() {
+    return currentSector;
 }

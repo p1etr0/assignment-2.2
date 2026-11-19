@@ -21,6 +21,8 @@
 
 Context& context = Context::getInstance();
 
+const int sectors = 10;
+
 Scheduler* scheduler;
 
 LedControlTask* ledControlTask;
@@ -60,14 +62,14 @@ void setup() {
     scheduler->init(100);
 
 
-    sweepTask = new SweepTask(MOTOR, POT);
-    sweepTask->init(1000);
+    sweepTask = new SweepTask(MOTOR, POT, sectors);
+    sweepTask->init(10000);
 
     ledControlTask = new LedControlTask(RED_LED, GREEN_LED);
     ledControlTask->init(30000);
 
-    senseDistanceTask = new SenseDistanceTask(TRIG, ECHO, TEMP);
-    senseDistanceTask->init(100);
+    senseDistanceTask = new SenseDistanceTask(TRIG, ECHO, TEMP, sectors);
+    senseDistanceTask->init(10000);
 
     scheduler->addTask(ledControlTask);
     scheduler->addTask(sweepTask);

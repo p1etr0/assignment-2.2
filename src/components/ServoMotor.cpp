@@ -9,12 +9,13 @@ ServoMotor::ServoMotor(int pin, int sectors) {
     this->dir = BACKWARD;
     this->position = 0;
     this->motor.attach(pin);
+    this->currentSector = 0;
 }
 
-void ServoMotor::sweep() {
+int ServoMotor::sweep() {
     // il tick fa avanzare o tornare indietro di un valore degli n
     // in base alla direzione del servomotore
-    position += (dir * sectors);
+    position += (dir * (int)(180 / sectors));
 
     if(position >= 180) {
         dir = BACKWARD;
@@ -23,7 +24,9 @@ void ServoMotor::sweep() {
     }
 
     setPosition(position);
-    //Serial.print("ServoMotor::sweep() - position: " + String(position) + "\n");
+    currentSector += dir;
+
+    return currentSector;
 }
 
 void ServoMotor::setPosition(int angle) {

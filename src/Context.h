@@ -18,11 +18,14 @@ public:
     bool isWorking();
     bool isPreAlarm();
     bool isAlarm();
-    
+
     void setIdle();
     void setWorking();
     void setPreAlarm();
     void setAlarm();
+    void setCurrentSector(int currentSector);
+
+    int getCurrentSector();
 
 private:
     // Costruttore reso privato per impedire il "new Context()" esterno
@@ -39,6 +42,8 @@ private:
     };
     
     RadarState radarState;
+
+    int currentSector;
 };
 
 #endif

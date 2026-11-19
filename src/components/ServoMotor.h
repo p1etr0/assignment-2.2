@@ -7,7 +7,7 @@ class ServoMotor {
 
 public:
     ServoMotor(int pin, int sectors);
-    void sweep();
+    int sweep();
     void setPosition(int angle);
 
 private:
@@ -15,6 +15,7 @@ private:
   int pin; 
   int sectors;
   int position;
+  int currentSector;
   enum direzione { FORWARD = 1, BACKWARD = -1 };
   direzione dir;
 };
