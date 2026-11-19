@@ -58,7 +58,7 @@ public:
   }
 
   void setPeriod(int period) {
-    myPeriod = myPeriod * period;
+    myPeriod = period;
   }
 
   virtual void setActive(bool active){

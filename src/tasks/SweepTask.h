@@ -20,7 +20,8 @@ private:
     int currentSector;
     const int S1 = 2; // moltiplicatore movimento WORKING
     const int S2 = 1; // // moltiplicatore movimento PRE_ALARM
-    
+    int periodS1; // periodo movimento WORKING
+    int periodS2; // periodo movimento PRE_ALARM
     ServoMotor* servo;
     Potentiometer* pot;
 };
