@@ -22,7 +22,7 @@
 
 Context& context = Context::getInstance();
 
-const int sectors = 3;
+const int sectors = 5;
 bool sleepFlag = false;
 
 Scheduler* scheduler;
@@ -65,8 +65,8 @@ void setup() {
     attachInterrupt(digitalPinToInterrupt(RESET), resetAction, RISING);
     attachInterrupt(digitalPinToInterrupt(START_STOP), startStopActions, RISING);
 
-    Serial.begin(9600);
-
+    Serial.begin(115200);
+    Serial.println("sw: funziona");
     scheduler = new Scheduler();
     scheduler->init(100);
 
