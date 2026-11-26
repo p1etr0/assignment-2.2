@@ -86,7 +86,7 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
 		if (event.isRXCHAR()) {
             try {
             		String msg = serialPort.readString(event.getEventValue());
-            		System.out.println("Received: " + msg);
+            		//System.out.println("Received: " + msg);
             		msg = msg.replaceAll("\r", "");
             		
             		currentMsg.append(msg);

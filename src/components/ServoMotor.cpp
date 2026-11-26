@@ -26,10 +26,6 @@ int ServoMotor::sweep() {
 
     setPosition(position);
     currentSector = position / sectorSpan;
-    Serial.print("Current position: ");
-    Serial.println(position);
-    Serial.print("Current sector: ");   
-    Serial.println(currentSector);
     return currentSector;
 }
 

@@ -23,7 +23,6 @@ float Sonar::getDistance(float temperature) {
     if (tUS > 0){
       float t = tUS / 1000.0 / 1000.0 / 2;
       float d = t*vs;
-      Serial.println(d);
       return d;
     } else {
       return -1.0;

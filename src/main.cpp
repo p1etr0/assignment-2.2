@@ -66,7 +66,7 @@ void setup() {
     attachInterrupt(digitalPinToInterrupt(START_STOP), startStopActions, RISING);
 
     Serial.begin(115200);
-    Serial.println("sw: funziona");
+    
     scheduler = new Scheduler();
     scheduler->init(100);
 
@@ -94,6 +94,7 @@ void setup() {
 }
 
 void loop() {
+    Serial.println("sct:" + String(sectors));
     if (sleepFlag) {
         sleepFlag = false;
         sleepTask->setActive(true);

@@ -1,7 +1,6 @@
 #include "SenseDistanceTask.h"
 #include "Context.h"
 #include "Arduino.h"
-
 SenseDistanceTask::SenseDistanceTask(int pinTrig, int pinEcho, int pinTemp, int sectors){
     this->pinTrig = pinTrig;
     this->pinEcho = pinEcho;
@@ -23,7 +22,10 @@ void SenseDistanceTask::tick(){
     
     if (context.isWorking()){
         int currentSector = context.getCurrentSector();
-        lcd->write(currentSector, spaceMapping(currentSector, distance));
+        bool objectDetected = spaceMapping(currentSector, distance);
+        String objectDetectedString = objectDetected?"True":"False";
+        lcd->write(currentSector, objectDetected);
+        Serial.println("rdr:"+String(currentSector)+"|"+objectDetectedString+"|"+String(distance));
         if (distance > D1 && distance < D2) {
         context.setPreAlarm();
         }
