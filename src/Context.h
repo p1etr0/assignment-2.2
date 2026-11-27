@@ -37,6 +37,10 @@ public:
     void setRight();
     void setLeft();
 
+    void setSleepFlag(bool flag);
+
+    bool getSleepFlag();
+
 
 private:
     // Costruttore reso privato per impedire il "new Context()" esterno
@@ -63,6 +67,8 @@ private:
         LEFT
     };
     ControlSweep controlSweep;
+
+    bool sleepFlag;
 };
 
 #endif

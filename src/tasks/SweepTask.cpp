@@ -36,10 +36,12 @@ void SweepTask::tick(){
     } else if (context.isRight()) {
         context.setWaiting();
         servo->setDirection(1);
-        servo->sweep();
+        currentSector = servo->sweep();
+        context.setCurrentSector(currentSector);
     } else if (context.isLeft()) {
         context.setWaiting();
         servo->setDirection(-1);
-        servo->sweep();
+        currentSector = servo->sweep();
+        context.setCurrentSector(currentSector);
     } 
 }

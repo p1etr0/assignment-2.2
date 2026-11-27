@@ -5,6 +5,7 @@ Context::Context() {
     this->radarState = IDLE;
     this->currentSector = 0;
     this->controlSweep = RSU;
+    this->sleepFlag = true;
 }
 
 bool Context::isIdle() {
@@ -25,6 +26,7 @@ bool Context::isAlarm() {
 
 void Context::setIdle() {
     this->setRSU();
+    this->setSleepFlag(true);
     this->radarState = IDLE;
 }
 
@@ -80,3 +82,10 @@ void Context::setLeft(){
     this->controlSweep = LEFT;
 }
 
+void Context::setSleepFlag(bool flag){
+    this->sleepFlag = flag;
+}
+
+bool Context::getSleepFlag(){
+    return this->sleepFlag;
+}

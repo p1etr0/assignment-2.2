@@ -108,8 +108,10 @@ class Dashboard extends JFrame implements ActionListener  {
 		takeControl.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			setEnabledButton(true, true, true, true, false, true);
-			controller.takeControlAction();
+			if (!currentState.getText().equals("IDLE")){
+				setEnabledButton(true, true, true, true, false, true);
+				controller.takeControlAction();
+			}
 		}
 		
 	});

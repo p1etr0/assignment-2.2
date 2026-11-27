@@ -17,6 +17,7 @@ bool Scheduler::addTask(Task* task){
 }
   
 void Scheduler::schedule(){ 
+  
   for (int i = 0; i < nTasks; i++){
     if (taskList[i]->isActive()){
       if (taskList[i]->isPeriodic()){

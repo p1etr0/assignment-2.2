@@ -26,7 +26,6 @@
 Context& context = Context::getInstance();
 
 const int sectors = 5;
-bool sleepFlag = false;
 
 Scheduler* scheduler;
 
@@ -48,11 +47,7 @@ void startStopActions() {
     if (context.isIdle()) {
         context.setWorking();
     } else if (context.isWorking()) {
-        context.setIdle();
-        sleepFlag = true;
-        
-        //scheduler->schedule();
-        
+        context.setIdle();      
     }
 }
 
@@ -94,16 +89,15 @@ void setup() {
     scheduler->addTask(ledControlTask);
     scheduler->addTask(sweepTask);
     scheduler->addTask(senseDistanceTask);
-    scheduler->addTask(sleepTask);
     scheduler->addTask(readMsgTask);
-   
+    scheduler->addTask(sleepTask);
 
 }
 
 void loop() {
     Serial.println("sct:" + String(sectors));
-    if (sleepFlag) {
-        sleepFlag = false;
+    if (context.getSleepFlag()) {
+        context.setSleepFlag(false);
         sleepTask->setActive(true);
     }
     scheduler->schedule();
