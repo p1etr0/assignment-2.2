@@ -4,6 +4,7 @@
 Context::Context() {
     this->radarState = IDLE;
     this->currentSector = 0;
+    this->controlSweep = RSU;
 }
 
 bool Context::isIdle() {
@@ -23,6 +24,7 @@ bool Context::isAlarm() {
 }
 
 void Context::setIdle() {
+    this->setRSU();
     this->radarState = IDLE;
 }
 
@@ -45,3 +47,36 @@ void Context::setCurrentSector(int currentSector) {
 int Context::getCurrentSector() {
     return currentSector;
 }
+
+bool Context::isRSU(){
+    return this->controlSweep == RSU;
+}
+
+bool Context::isWaiting(){
+    return this->controlSweep == WAITING;
+}
+
+bool Context::isRight(){
+    return this->controlSweep == RIGHT;
+}
+
+bool Context::isLeft(){
+    return this->controlSweep == LEFT;
+}
+
+void Context::setRSU(){
+    this->controlSweep = RSU;
+}
+
+void Context::setWaiting(){
+    this->controlSweep = WAITING;
+}
+
+void Context::setRight(){
+    this->controlSweep = RIGHT;
+}
+
+void Context::setLeft(){
+    this->controlSweep = LEFT;
+}
+

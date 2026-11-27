@@ -1,5 +1,6 @@
 #include "ServoMotor.h"
 #include "Arduino.h"
+//#include "optional.h"
 
 
 
@@ -11,7 +12,13 @@ ServoMotor::ServoMotor(int pin, int sectors) {
     this->motor.attach(pin);
     this->currentSector = 0;
 }
-
+void ServoMotor::setDirection(int direction){
+    if (direction == 1){
+        dir = FORWARD;
+    }else if (direction == -1){
+        dir = BACKWARD;
+    }
+}
 int ServoMotor::sweep() {
     // il tick fa avanzare o tornare indietro di un valore degli n
     // in base alla direzione del servomotore

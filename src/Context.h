@@ -27,6 +27,17 @@ public:
 
     int getCurrentSector();
 
+    bool isRSU();
+    bool isWaiting();
+    bool isRight();
+    bool isLeft();
+
+    void setRSU();
+    void setWaiting();
+    void setRight();
+    void setLeft();
+
+
 private:
     // Costruttore reso privato per impedire il "new Context()" esterno
     Context();
@@ -44,6 +55,14 @@ private:
     RadarState radarState;
 
     int currentSector;
+
+    enum ControlSweep {
+        RSU,
+        WAITING,
+        RIGHT,
+        LEFT
+    };
+    ControlSweep controlSweep;
 };
 
 #endif

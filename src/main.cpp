@@ -4,10 +4,13 @@
 
 #include "Scheduler.h"
 
+#include "components/MsgService.h"
+
 #include "tasks/SleepTask.h"
 #include "tasks/SweepTask.h"
 #include "tasks/LedControlTask.h"
 #include "tasks/SenseDistanceTask.h"
+#include "tasks/ReadMsgTask.h"
 
 #define POT A0
 #define TEMP A1
@@ -31,6 +34,7 @@ SleepTask* sleepTask;
 LedControlTask* ledControlTask;
 SweepTask* sweepTask;
 SenseDistanceTask* senseDistanceTask;
+ReadMsgTask* readMsgTask;
 
 
 
@@ -82,6 +86,8 @@ void setup() {
     senseDistanceTask = new SenseDistanceTask(TRIG, ECHO, TEMP, sectors);
     senseDistanceTask->init(100);
 
+    readMsgTask = new ReadMsgTask();
+    readMsgTask->init(100);
     sleepTask->setActive(true);
 
     
@@ -89,6 +95,7 @@ void setup() {
     scheduler->addTask(sweepTask);
     scheduler->addTask(senseDistanceTask);
     scheduler->addTask(sleepTask);
+    scheduler->addTask(readMsgTask);
    
 
 }
@@ -100,6 +107,8 @@ void loop() {
         sleepTask->setActive(true);
     }
     scheduler->schedule();
+    
+
 
 }
 

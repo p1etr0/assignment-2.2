@@ -8,6 +8,7 @@ class ServoMotor {
 public:
     ServoMotor(int pin, int sectors);
     int sweep();
+    void setDirection(int direction);
     void setPosition(int angle);
 
 private:

@@ -19,7 +19,13 @@ class Dashboard extends JFrame implements ActionListener  {
 	private DefaultTableModel model = new DefaultTableModel(column, 0); 
 	
 	private JTextField currentState;
-	
+
+	private JButton stop;
+	private JButton reset;
+	private JButton rightSweep;
+	private JButton leftSweep;
+	private JButton takeControl;
+	private JButton releaseControl;
 	
 	private DashboardController controller;	
 	
@@ -56,6 +62,73 @@ class Dashboard extends JFrame implements ActionListener  {
 
     mainPanel.add(scrollPane);
 
+	stop = new JButton();
+	stop.setText("stop");
+	reset = new JButton();
+	reset.setText("reset");
+	rightSweep = new JButton();
+	rightSweep.setText("->");
+	leftSweep = new JButton();
+	leftSweep.setText("<-");
+	takeControl = new JButton();
+	takeControl.setText("takeControl");
+	releaseControl = new JButton();
+	releaseControl.setText("releaseControl");
+	
+	stop.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setEnabledButton(false, false, false, false, true, false);
+			controller.stopAction();
+		}
+		
+	});
+	reset.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.resetAction();
+		}
+		
+	});
+	rightSweep.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.rightSweepAction();
+		}
+		
+	});
+	leftSweep.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.leftSweepAction();
+		}
+		
+	});
+
+		takeControl.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setEnabledButton(true, true, true, true, false, true);
+			controller.takeControlAction();
+		}
+		
+	});
+
+		releaseControl.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setEnabledButton(false, false, false, false, true, false);
+			controller.releaseControlAction();
+		}
+		
+	});
+	setEnabledButton(false, false, false, false, true, false);
+	mainPanel.add(stop);
+	mainPanel.add(reset);
+	mainPanel.add(rightSweep);
+	mainPanel.add(leftSweep);
+	mainPanel.add(takeControl);
+	mainPanel.add(releaseControl);
     setContentPane(mainPanel);
 
     addWindowListener(new WindowAdapter(){
@@ -64,6 +137,14 @@ class Dashboard extends JFrame implements ActionListener  {
         }
     });
 }
+	private void setEnabledButton(boolean stop, boolean reset, boolean right, boolean left, boolean take, boolean release){
+		this.stop.setEnabled(stop);
+		this.reset.setEnabled(reset);
+		this.rightSweep.setEnabled(right);
+		this.leftSweep.setEnabled(left);
+		this.takeControl.setEnabled(take);
+		this.releaseControl.setEnabled(release);
+	}
 	
 	public void display() {
 		SwingUtilities.invokeLater(() -> {

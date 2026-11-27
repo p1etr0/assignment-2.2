@@ -16,5 +16,29 @@ public class DashboardController  {
 		Thread.sleep(4000);
 		System.out.println("Ready.");			
 	}
+
+	public void stopAction() {
+		channel.sendMsg("stp");
+	}
+
+	public void resetAction() {
+		channel.sendMsg("rst");
+	}
+
+    public void rightSweepAction() {
+        channel.sendMsg("rs");
+    }
+
+    public void leftSweepAction() {
+        channel.sendMsg("ls");
+    }
+
+	public void takeControlAction() {
+		channel.sendMsg("tc");
+	}
+
+    public void releaseControlAction() {
+        channel.sendMsg("rc");
+    }
 	
 }

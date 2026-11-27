@@ -19,17 +19,27 @@ void SweepTask::init(int period){
 
 void SweepTask::tick(){
     Context& context = Context::getInstance();
-    if (context.isWorking()) {
-        this->setPeriod(this->periodS1);
-        currentSector = servo->sweep();
-        context.setCurrentSector(currentSector);
-    } else if (context.isPreAlarm()) {
-        this->setPeriod(this->periodS2);
+    if (context.isRSU()){
+        if (context.isWorking()) {
+            this->setPeriod(this->periodS1);
+            currentSector = servo->sweep();
+            context.setCurrentSector(currentSector);
+        } else if (context.isPreAlarm()) {
+            this->setPeriod(this->periodS2);
+            servo->sweep();
+        } else if (context.isAlarm()) {
+            int angle = map(pot->getValue(), 0, 1023, 0, 180);
+            servo->setPosition(angle);
+        }else if (context.isIdle()) {
+            servo->setPosition(0);
+        }
+    } else if (context.isRight()) {
+        context.setWaiting();
+        servo->setDirection(1);
         servo->sweep();
-    } else if (context.isAlarm()) {
-        int angle = map(pot->getValue(), 0, 1023, 0, 180);
-        servo->setPosition(angle);
-    }else if (context.isIdle()) {
-        servo->setPosition(0);
-    }
+    } else if (context.isLeft()) {
+        context.setWaiting();
+        servo->setDirection(-1);
+        servo->sweep();
+    } 
 }

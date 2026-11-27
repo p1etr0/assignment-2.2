@@ -14,7 +14,7 @@ public interface CommChannel {
 	 * 
 	 * @param msg
 	 */
-	//void sendMsg(String msg);
+	void sendMsg(String msg);
 	
 	/**
 	 * To receive a message. 

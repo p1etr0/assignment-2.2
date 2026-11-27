@@ -37,26 +37,29 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
 		}
 	}
 
-    //@Override
-	//public void sendMsg(String msg) {
-	//	char[] array = (msg+"\n").toCharArray();
-	//	byte[] bytes = new byte[array.length];
-	//	for (int i = 0; i < array.length; i++){
-	//		bytes[i] = (byte) array[i];
-	//	}
-	//	try {
-	//		synchronized (serialPort) {
-	//			serialPort.writeBytes(bytes);
-	//		}
-	//	} catch(Exception ex){
-	//		ex.printStackTrace();
-	//	}
-	//}
+    @Override
+	public void sendMsg(String msg) {
+		//System.out.println(msg);
+		char[] array = (msg+"\n").toCharArray();
+		byte[] bytes = new byte[array.length];
+		for (int i = 0; i < array.length; i++){
+			bytes[i] = (byte) array[i];
+		}
+		try {
+			synchronized (serialPort) {
+				serialPort.writeBytes(bytes);
+			}
+		} catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
 
 	@Override
 	public String receiveMsg() throws InterruptedException {
 		// TODO Auto-generated method stub
-		return queue.take();
+		String msg = queue.take();
+		System.out.println(msg);
+		return msg;
 	}
 
 	@Override

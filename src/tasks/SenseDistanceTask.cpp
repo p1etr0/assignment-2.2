@@ -1,6 +1,7 @@
 #include "SenseDistanceTask.h"
 #include "Context.h"
 #include "Arduino.h"
+#include "components/MsgService.h"
 SenseDistanceTask::SenseDistanceTask(int pinTrig, int pinEcho, int pinTemp, int sectors){
     this->pinTrig = pinTrig;
     this->pinEcho = pinEcho;
@@ -20,6 +21,7 @@ void SenseDistanceTask::tick(){
     float distance = sonar->getDistance(temperature);
     Context& context = Context::getInstance();
     
+
     if (context.isWorking()){
         int currentSector = context.getCurrentSector();
         bool objectDetected = spaceMapping(currentSector, distance);
