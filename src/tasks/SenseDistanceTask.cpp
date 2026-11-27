@@ -1,7 +1,8 @@
 #include "SenseDistanceTask.h"
-#include "Context.h"
 #include "Arduino.h"
 #include "components/MsgService.h"
+#include "Context.h"
+
 SenseDistanceTask::SenseDistanceTask(int pinTrig, int pinEcho, int pinTemp, int sectors){
     this->pinTrig = pinTrig;
     this->pinEcho = pinEcho;
@@ -17,29 +18,32 @@ void SenseDistanceTask::init(int period){
 }
   
 void SenseDistanceTask::tick(){
-    float temperature = tempSensor->getTemperature();
-    float distance = sonar->getDistance(temperature);
     Context& context = Context::getInstance();
-    
+    temperature = tempSensor->getTemperature();
+    distance = sonar->getDistance(temperature);
 
-    if (context.isWorking()){
-        int currentSector = context.getCurrentSector();
-        bool objectDetected = spaceMapping(currentSector, distance);
-        String objectDetectedString = objectDetected?"True":"False";
+    switch (context.getState())
+    {
+    case WORKING:
+        currentSector = context.getCurrentSector();
+        objectDetected = spaceMapping(currentSector, distance);
         lcd->write(currentSector, objectDetected);
-        Serial.println("rdr:"+String(currentSector)+"|"+objectDetectedString+"|"+String(distance));
+        Serial.println("rdr:"+String(currentSector)+"|"+(objectDetected?"True":"False")+"|"+String(distance));
         if (distance > D1 && distance < D2) {
-        context.setPreAlarm();
+            context.setPreAlarm();
         }
-    } else if (context.isPreAlarm()) {
+        break;
+    case PRE_ALARM:
         lcd->clear();
         if (distance < D1) {
             context.setAlarm();
         } else if (distance > D2) {
             context.setWorking();
         }
-    } else {
+        break;
+    default:
         lcd->clear();
+        break;
     }
 }
 

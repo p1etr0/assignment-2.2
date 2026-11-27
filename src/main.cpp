@@ -38,16 +38,22 @@ ReadMsgTask* readMsgTask;
 
 
 void resetAction() {
-    if (context.isAlarm()){
+    if (context.getState() == ALARM){
         context.setWorking();
     }
 }
 
 void startStopActions() {
-    if (context.isIdle()) {
+    switch (context.getState())
+    {
+    case IDLE:
         context.setWorking();
-    } else if (context.isWorking()) {
-        context.setIdle();      
+        break;
+    case WORKING:
+        context.setIdle();   
+        break;
+    default:
+        break;
     }
 }
 
@@ -101,8 +107,11 @@ void loop() {
         sleepTask->setActive(true);
     }
     scheduler->schedule();
-    
-
-
+    context.getState() == IDLE ?  Serial.println("st:IDLE") :
+    context.getState() == WORKING ? Serial.println("st:WORKING") :
+    context.getState() == PRE_ALARM ? Serial.println("st:PRE_ALARM")  :
+    context.getState() == ALARM ? Serial.println("st:ALARM")  : 
+    Serial.println("");
+    //Context::getInstance().isIdle() ? Serial.println("st:IDLE") :Context::getInstance().isWorking() ? Serial.println("st:WORKING") : Context::getInstance().isPreAlarm() ? Serial.println("st:PREALARM") : Context::getInstance().isAlarm() ? Serial.println("st:ALARM"):Serial.println("");
 }
 

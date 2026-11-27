@@ -8,20 +8,20 @@ Context::Context() {
     this->sleepFlag = true;
 }
 
-bool Context::isIdle() {
-    return radarState == IDLE;
+RadarState Context::getState() {
+    return radarState;
 }
 
-bool Context::isWorking() {
-    return radarState == WORKING;
+int Context::getCurrentSector() {
+    return this->currentSector;
 }
 
-bool Context::isPreAlarm() {
-    return radarState == PRE_ALARM;
+ControlSweep Context::getControlSweep(){
+    return this->controlSweep;
 }
 
-bool Context::isAlarm() {
-    return radarState == ALARM;
+bool Context::getSleepFlag(){
+    return this->sleepFlag;
 }
 
 void Context::setIdle() {
@@ -46,26 +46,6 @@ void Context::setCurrentSector(int currentSector) {
     this->currentSector = currentSector;
 }
 
-int Context::getCurrentSector() {
-    return currentSector;
-}
-
-bool Context::isRSU(){
-    return this->controlSweep == RSU;
-}
-
-bool Context::isWaiting(){
-    return this->controlSweep == WAITING;
-}
-
-bool Context::isRight(){
-    return this->controlSweep == RIGHT;
-}
-
-bool Context::isLeft(){
-    return this->controlSweep == LEFT;
-}
-
 void Context::setRSU(){
     this->controlSweep = RSU;
 }
@@ -84,8 +64,4 @@ void Context::setLeft(){
 
 void Context::setSleepFlag(bool flag){
     this->sleepFlag = flag;
-}
-
-bool Context::getSleepFlag(){
-    return this->sleepFlag;
 }

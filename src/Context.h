@@ -1,6 +1,20 @@
 #ifndef __CONTEXT__
 #define __CONTEXT__
 
+enum RadarState {
+    IDLE,
+    WORKING,
+    PRE_ALARM,
+    ALARM
+};
+
+enum ControlSweep {
+    RSU,
+    WAITING,
+    RIGHT,
+    LEFT
+};
+
 class Context {
 
 public:
@@ -14,23 +28,20 @@ public:
     Context(const Context&) = delete;
     Context& operator=(const Context&) = delete;
 
-    bool isIdle();
-    bool isWorking();
-    bool isPreAlarm();
-    bool isAlarm();
+    RadarState getState();
+
+    int getCurrentSector();
+
+    ControlSweep getControlSweep();
+
+    bool getSleepFlag();
 
     void setIdle();
     void setWorking();
     void setPreAlarm();
     void setAlarm();
+
     void setCurrentSector(int currentSector);
-
-    int getCurrentSector();
-
-    bool isRSU();
-    bool isWaiting();
-    bool isRight();
-    bool isLeft();
 
     void setRSU();
     void setWaiting();
@@ -39,9 +50,6 @@ public:
 
     void setSleepFlag(bool flag);
 
-    bool getSleepFlag();
-
-
 private:
     // Costruttore reso privato per impedire il "new Context()" esterno
     Context();
@@ -49,23 +57,10 @@ private:
     // Distruttore privato (opzionale, ma coerente per un singleton che non deve essere cancellato con delete)
     ~Context() = default;
 
-    enum RadarState {
-        IDLE,
-        WORKING,
-        PRE_ALARM,
-        ALARM
-    };
-    
     RadarState radarState;
 
     int currentSector;
-
-    enum ControlSweep {
-        RSU,
-        WAITING,
-        RIGHT,
-        LEFT
-    };
+    
     ControlSweep controlSweep;
 
     bool sleepFlag;

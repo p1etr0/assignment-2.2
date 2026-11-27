@@ -15,21 +15,26 @@ void LedControlTask::init(int period){
 }
   
 void LedControlTask::tick(){
-    if (Context::getInstance().isIdle()) {
-        greenState = OFF;
-        greenLed->switchOff();
-    } else if (Context::getInstance().isWorking()) {
-        greenState = ON;
-        greenLed->switchOn();
-        redState = OFF;
-        redLed->switchOff();
-    } else if (Context::getInstance().isPreAlarm()) {
-        greenState = OFF;
-        greenLed->switchOff();
-        redState = ON;
-        redLed->switchOn();
-    } else if (Context::getInstance().isAlarm()) {
-      switch (redState){
+  switch (Context::getInstance().getState())
+  {
+  case IDLE:
+    greenState = OFF;
+    greenLed->switchOff();
+    break;
+  case WORKING:
+    greenState = ON;
+    greenLed->switchOn();
+    redState = OFF;
+    redLed->switchOff();
+    break;
+  case PRE_ALARM:
+    greenState = OFF;
+    greenLed->switchOff();
+    redState = ON;
+    redLed->switchOn();
+    break;
+  case ALARM:
+    switch (redState){
       case OFF:
         redLed->switchOn();
         redState = ON; 
@@ -39,5 +44,8 @@ void LedControlTask::tick(){
         redState = OFF;
         break;
     }
-    }
+    break;
+  default:
+    break;
+  }
 }

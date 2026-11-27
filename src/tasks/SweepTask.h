@@ -18,6 +18,7 @@ private:
     int pinPot;
     int sectors;
     int currentSector;
+    int angle;
     const int S1 = 2; // moltiplicatore movimento WORKING
     const int S2 = 1; // // moltiplicatore movimento PRE_ALARM
     int periodS1; // periodo movimento WORKING

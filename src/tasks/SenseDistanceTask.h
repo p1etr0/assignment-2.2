@@ -18,9 +18,13 @@ private:
     TemperatureSensor* tempSensor;
     Sonar* sonar;
     Lcd* lcd;
+    bool objectDetected;
     int pinTrig;
     int pinEcho;
     int pinTemp;
+    int currentSector;
+    float temperature;
+    float distance;
     float* spaceMap;
     const float D1 = 0.20;
     const float D2 = 0.30;

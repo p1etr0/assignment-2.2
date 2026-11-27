@@ -10,7 +10,7 @@ void SleepTask::init(){
 }
   
 void SleepTask::tick(){
-    if (Context::getInstance().isIdle()) {
+    if (Context::getInstance().getState() == IDLE) {
         set_sleep_mode(SLEEP_MODE_PWR_DOWN);
         noInterrupts(); // Disable interrupts to ensure the sleep mode is set before enabling sleep
         sleep_enable();
